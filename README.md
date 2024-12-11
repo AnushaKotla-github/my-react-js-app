@@ -1,6 +1,6 @@
 # Deploy React App to Server 
 
-This project teaches how to deploy a react application to server (AWS)
+This project teaches how to deploy a react application to server (AWS))
 
 #### Node and npm installation
 
