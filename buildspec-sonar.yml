@@ -1,0 +1,31 @@
+version: 0.2
+ 
+phases:
+  install:
+    commands:
+      - echo "Updating system and installing dependencies..."
+      - yum update -y
+      - yum install -y java-11-amazon-corretto unzip wget
+ 
+      - echo "Installing Sonar Scanner..."
+      - curl -o sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+      - unzip sonar-scanner-cli.zip
+      - chmod +x sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner
+      - export PATH=$PATH:$(pwd)/sonar-scanner-4.7.0.2747-linux/bin
+      - echo "Sonar Scanner Installed."
+ 
+  build:
+    commands:
+      - echo "Running SonarQube Analysis..."
+      - export REPO_NAME=${CODEBUILD_PROJECT:-"belami-latest-catalyst"}
+      - export BRANCH_NAME=${CODEBUILD_GIT_BRANCH:-"dev"}
+      - |
+        sonar-scanner \
+          -Dsonar.projectKey="$REPO_NAME" \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=http://18.212.150.155:9000 \
+          -Dsonar.login=sqa_c72490606e2ee9df182993f3c267df084024f5c2
+ 
+artifacts:
+  files:
+    - "**/*"
