@@ -24,7 +24,7 @@ phases:
           -Dsonar.projectKey="$REPO_NAME" \
           -Dsonar.sources=. \
           -Dsonar.host.url=http://18.212.150.155:9000 \
-          -Dsonar.login=sqa_c72490606e2ee9df182993f3c267df084024f5c2
+          -Dsonar.login=sqa_80ac5b234eea3542fadc9022a19d26b010ef7f99
  
 artifacts:
   files:
